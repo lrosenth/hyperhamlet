@@ -40,11 +40,6 @@ def get_list(con: mariadb.Connection, name: str) -> List[RawListNode]:
     return nodes
 
 
-def process_list(nodes: List[RawListNode]):
-    toprawnodes = [x for x in nodes if x.parent is None]
-    toprawnodes.sort(key=lambda node: node.sortorder)
-    topnodes = [ListNode(x) for x in toprawnodes]
-
 
 def to_node_with_children(rawnode: RawListNode, rawnodes: List[RawListNode]):
     children: List[ListNode] = []
