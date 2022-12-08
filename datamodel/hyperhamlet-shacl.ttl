@@ -1,43 +1,37 @@
 @prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 
 @prefix hh: <http://rosenthaler.org/ontologies/ontologies/hyperhamlet#> .
 
 
-hh:ListShape
-    a sh:NodeShape ;
-    sh:targetClass hh:List ;
-    sh:property [
-                    sh:path rdfs:label ;
-                    sh:minCount 1 ;
-                    sh:maxCount 1 ;
-                ] ;
-    sh:property [
-                    sh:path hh:hasListname ;
-                    sh:minCount 1 ;
-                    sh:maxCount 1 ;
-                ] .
-
 hh:ListNodeShape
     a sh:NodeShape ;
     sh:targetClass hh:ListNode ;
     sh:property [
-                    sh:path hh:belongsToList ;
-                    sh:minCount 1 ;
-                    sh:maxCount 1 ;
-                    sh:class hh:List ;
-                    sh:nodeKind sh:IRI ;
-                ] ;
-    sh:property [
                     sh:path rdfs:label ;
                     sh:minCount 1 ;
+                    sh:languageIn ( "en" "de" "fr" "it") ;
+                    sh:uniqueLang true ;
+                ] ;
+    sh:property [
+                    sh:path hh:isListRoot ;
+                    sh:datatype xsd:boolean ;
                     sh:maxCount 1 ;
+                ] ;
+    sh:property [
+                    sh:path hh:hasListRoot ;
+                    sh:minCount 1;
+                    sh:maxCount 1 ;
+                    sh:class hh:ListNode ;
+                    sh:nodeKind sh:IRI ;
                 ] ;
     sh:property [
                     sh:path hh:hasParent ;
                     sh:maxCount 1 ;
                     sh:class hh:ListNode ;
                     sh:nodeKind sh:IRI ;
-                ] .
+                ] ;
+    sh:closed true .

@@ -1,0 +1,79 @@
+@prefix :     <http://rosenthaler.org/ontologies/ontologies/test#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml:  <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://rosenthaler.org/ontologies/ontologies/test#> .
+
+:ListRoot
+    rdf:type        owl:Class ;
+    rdfs:subClassOf [ rdf:type                 owl:Restriction ;
+                      owl:onProperty           :hasList ;
+                      owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                      owl:onClass              :ListRoot ] .
+
+:ListNode
+    rdf:type        owl:Class ;
+    rdfs:subClassOf [ rdf:type                    owl:Restriction ;
+                      owl:onProperty              :hasSubList ;
+                      owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                      owl:onDataRange             xsd:boolean ] .
+
+
+:hasList
+    rdf:type   owl:ObjectProperty ;
+    rdfs:range rdf:List .
+
+:hasSubList
+    rdf:type   owl:ObjectProperty ;
+    rdfs:range rdf:List .
+
+:TestListNode
+    rdf:type        owl:Class ;
+    rdfs:subClassOf :ListNode .
+
+
+:gaga rdf:type   :TestListNode ;
+      rdfs:label "GAGAGAGAGA" .
+
+:testlist
+    rdf:type :ListRoot ;
+    :hasList ( [ rdf:type   :TestListNode ;
+                 rdfs:label "Eins" ]
+               [ rdf:type   :TestListNode ;
+                 rdfs:label "Zwei" ]
+               [ rdf:type   :TestListNode ;
+                 rdfs:label "Drei" ]
+               [ rdf:type   :TestListNode ;
+                 rdfs:label "Vier" ]
+               [ rdf:type   :TestListNode ;
+                 rdfs:label "Fünf" ] ) .
+
+:HierListNode
+    rdf:type        owl:Class ;
+    rdfs:subClassOf :ListNode .
+
+:One rdf:type :HierListNode ;
+     rdfs:label "One" .
+
+:Two rdf:type :HierListNode ;
+     rdfs:label "Two" .
+
+:Three rdf:type :HierListNode ;
+     rdfs:label "Three" .
+
+:TwoOne rdf:type :HierListNode ;
+     rdfs:label "Two-One" .
+
+:TwoTwo rdf:type :HierListNode ;
+     rdfs:label "Two-two" .
+
+:TwoThree rdf:type :HierListNode ;
+     rdfs:label "Two-three" .
+
+:Two :hasSubList ( :TwoOne :TwoTwo :TwoThree ) .
+
+:hierlist
+    :hasList ( :One :Two :Three ) .
+
